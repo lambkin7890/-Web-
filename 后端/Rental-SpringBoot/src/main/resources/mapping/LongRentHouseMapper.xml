@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rental.dao.LongRentHouseDao">
+	<!-- 房源添加操作 -->
+	<insert id="add" parameterType="com.rental.entity.LongRentHouse">
+		insert into long_rent_house(id,sn,photo,price,name,address,area,floorRange,introduce,landlordId,bedRoomNum,sittingRoomNum,toiletNum,totalFloor,isEntire,isSouth,isElevator,createTime) values(null,#{sn},#{photo},#{price},#{name},#{address},#{area},#{floorRange},#{introduce},#{landlordId},#{bedRoomNum},#{sittingRoomNum},#{toiletNum},#{totalFloor},#{isEntire},#{isSouth},#{isElevator},#{createTime})
+	</insert>
+	<!-- 房源编辑操作 -->
+	<update id="edit" parameterType="com.rental.entity.LongRentHouse">
+		update long_rent_house set sn=#{sn},photo=#{photo},price=#{price},name=#{name},address=#{address},area=#{area},floorRange=#{floorRange},introduce=#{introduce},landlordId=#{landlordId},bedRoomNum=#{bedRoomNum},sittingRoomNum=#{sittingRoomNum},toiletNum=#{toiletNum},totalFloor=#{totalFloor},isEntire=#{isEntire},isSouth=#{isSouth},isElevator=#{isElevator} where id=#{id}
+	</update>
+	<!-- 删除房型信息 -->
+	<delete id="delete" parameterType="Long">
+		delete from long_rent_house where id=${value}
+	</delete>
+	<!-- 获取单个房屋信息 -->
+	<select id="findById" parameterType="Long" resultType="com.rental.entity.LongRentHouse">
+		select * from long_rent_house where id=#{value}
+	</select>
+	<!-- 房间信息搜索查询 -->
+	<select id="findList" parameterType="Map" resultType="com.rental.entity.LongRentHouse">
+		select t.*,s.username as landlordName,s.realName as landlordRealName from long_rent_house t
+		left join (select * from user) s on s.id=t.landlordId
+		where 1=1
+		<if test="name != null">
+			and name like '%${name}%' 
+		</if>
+		<if test="address != null">
+			and address like '%${address}%' 
+		</if>
+		<if test="landlordId != null">
+			and landlordId = #{landlordId} 
+		</if>
+		<if test="offset != null and pageSize != null">
+			limit #{offset},#{pageSize}
+		</if>
+	</select>
+	<!-- 模糊搜索总条数 -->
+	<select id="getTotal" parameterType="Map" resultType="Integer">
+		select count(*) from long_rent_house where 1=1 
+		<if test="name != null">
+			and name like '%${name}%' 
+		</if>
+		<if test="address != null">
+			and address like '%${address}%' 
+		</if>
+		<if test="landlordId != null">
+			and landlordId = #{landlordId} 
+		</if>
+	</select>
+
+</mapper>

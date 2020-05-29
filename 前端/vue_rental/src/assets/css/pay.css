@@ -1,0 +1,104 @@
+.cnt_tix {
+    border-bottom: 1px solid #dce0e0;
+    height: 110px;
+}
+/* .duigo_par {
+    width: 98px;
+    padding: 34px 0 0 46px;
+}
+.duigo_par span {
+    display: block;
+    width: 53px;
+    height: 40px;
+    background: url(../images/icons/bj2.png) no-repeat;
+    background-position: -69px 0;
+} */
+.you_ti {
+    padding: 22px 0;
+    margin-left: 46px;
+}
+.you_p1 {
+    font-size: 20px;
+    line-height: 30px;
+    color: #322c27;
+}
+.you_p2 {
+    font-size: 14px;
+    line-height: 32px;
+    color: #3f3935;
+}
+.you_p2 .a_more {
+    display: inline-block;
+    line-height: 16px;
+    border-bottom: 1px dashed #777776;
+	    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    color: #322c27;
+    font-size: 14px;
+}
+.go_pay {
+    margin-top: 28px;
+    padding-left: 45px;
+    padding-bottom: 60px;
+}
+.pay_parent dt {
+    width: 143px;
+    font-size: 14px;
+    line-height: 44px;
+    color: #322c27;
+}
+.pay_parent dd {
+    font-size: 20px;
+    line-height: 44px;
+    color: #ff545a;
+}
+.pay_parent dt.bank_dt {
+    line-height: 66px;
+    cursor: default;
+}
+.bank {
+    margin-left: -24px;
+    width: 1070px;
+}
+.bank_ul1 {
+    padding-bottom: 10px;
+    margin-right: -4px;
+}
+.go_pay a {
+    display: block;
+    width: 136px;
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    background: #ff545a;
+    line-height: 40px;
+    border-radius: 3px;
+}
+.pay_parent{
+	height:120px;
+    padding-left: 46px;
+}
+.pay_parent dt{
+		font-weight:normal;
+}
+.bank_radio {
+    float: left;
+    margin: 13px 18px 13px 0;
+}
+.bank_radio label {
+    display: block;
+    height: 40px;
+}
+.bank_radio input {
+    float: left;
+    margin-top: 14px;
+    margin-right: 12px;
+}
+.bank_radio img {
+    display: block;
+    float: right;
+    width: 134px;
+    height: 38px;
+    border: 1px solid #c1bcbc;
+}

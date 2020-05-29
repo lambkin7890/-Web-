@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rental.dao.HouseCollectionDao">
+	<!-- 收藏信息搜索查询 -->
+	<select id="findList" parameterType="Map" resultType="com.rental.entity.HouseCollection">
+		select t.*,s.username as tenantName,w.* from (house_collection 
+		t left join user s on s.id=t.userId) left join house w on w.id=t.houseId
+		where 1=1
+		<if test="userId != null">
+			and userId = #{userId} 
+		</if>
+		<if test="houseId != null">
+			and houseId = #{houseId} 
+		</if>
+		<if test="offset != null and pageSize != null">
+			limit #{offset},#{pageSize}
+		</if>
+	</select>
+	<!-- 模糊搜索总条数 -->
+	<select id="getTotal" parameterType="Map" resultType="Integer">
+		select count(*) from house_collection where 1=1 
+		<if test="userId != null">
+			and userId = #{userId}  
+		</if>
+		<if test="houseId != null">
+			and houseId = #{houseId} 
+		</if>
+	</select>
+	<!-- 添加收藏 -->
+	<insert id="add" parameterType="Collection">
+		insert into house_collection(id,userId,houseId) values(null,#{userId},#{houseId})
+	</insert>
+	<!-- 删除收藏 -->
+	<delete id="delete" parameterType="Long">
+		delete from house_collection where id=${value}
+	</delete>
+</mapper>

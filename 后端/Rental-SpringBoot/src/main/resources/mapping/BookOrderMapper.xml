@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rental.dao.BookOrderDao">
+	<!-- 添加订单 -->
+	<insert id="add" parameterType="com.rental.entity.BookOrder">
+		insert into book_order(id,sn,checkinDay,checkoutDay,userId,mobile,checkinNum,checkinName,checkinIdCard,houseId,houseHolderId,nightCount,totalPrice,status,createTime) values(null,#{sn},#{checkinDay},#{checkoutDay},#{userId},#{mobile},#{checkinNum},#{checkinName},#{checkinIdCard},#{houseId},#{houseHolderId},#{nightCount},#{totalPrice},#{status},#{createTime})
+	</insert>
+	<!-- 预定订单编辑操作 -->
+	<update id="edit" parameterType="com.rental.entity.BookOrder">
+		update book_order set checkinDay=#{checkinDay},checkoutDay=#{checkoutDay},userId=#{userId},mobile=#{mobile},checkinNum=#{checkinNum},checkinName=#{checkinName},checkinIdCard=#{checkinIdCard},houseId=#{houseId},status=#{status},nightCount=#{nightCount},totalPrice=#{totalPrice} where id=#{id}
+	</update>
+	<!-- 删除预定订单信息 -->
+	<delete id="delete" parameterType="Long">
+		delete from book_order where id=${value}
+	</delete>
+	<!-- 预定订单信息搜索查询 -->
+	<select id="findList" parameterType="Map" resultType="com.rental.entity.BookOrder">
+		select t.*,s.username as tenantName,w.* from (book_order t
+		left join user s on s.id=t.userId) left join house w on t.houseId=w.id
+		where 1=1
+		<if test="status != null">
+			and status = #{status} 
+		</if>
+		<if test="houseHolderId != null">
+			and houseHolderId = #{houseHolderId} 
+		</if>
+		<if test="userId != null">
+			and userId = #{userId} 
+		</if>
+		<if test="offset != null and pageSize != null">
+			limit #{offset},#{pageSize}
+		</if>
+	</select>
+	<!-- 获取单个预定订单信息 -->
+	<select id="findById" parameterType="Long" resultType="com.rental.entity.BookOrder">
+		select t.*,s.*,w.username as tenantName from 
+		(book_order t left join house s on t.houseId=s.id) 
+		left join user w on t.userId=w.id
+		where t.id=#{value}
+	</select>
+	<!-- 获取单个预定订单信息 -->
+	<select id="findBySn" parameterType="String" resultType="com.rental.entity.BookOrder">
+		select * from book_order where sn=#{value}
+	</select>
+	<!-- 模糊搜索总条数 -->
+	<select id="getTotal" parameterType="Map" resultType="Integer">
+		select count(*) from book_order where 1=1 
+		<if test="houseHolderId != null">
+			and houseHolderId = #{houseHolderId} 
+		</if>
+		<if test="userId != null">
+			and userId = #{userId} 
+		</if>
+		<if test="status != null">
+			and status = #{status} 
+		</if>
+	</select>
+	
+</mapper>
